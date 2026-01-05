@@ -109,6 +109,7 @@ body {
     font-weight: 900;
     letter-spacing: -2px;
     background: linear-gradient(135deg, #1e293b, #334155);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
@@ -188,6 +189,8 @@ body {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
+    /* Constrain card width */
     /* Constrain card width */
     text-align: center;
     position: relative;
@@ -313,27 +316,62 @@ body {
     .event-title {
         font-size: 3rem;
     }
+}
 
-    .timeline-line {
-        left: 20px;
-        transform: none;
-    }
+/* Card Link Styles */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
 
-    .timeline-item {
-        justify-content: flex-start;
-        padding-left: 50px;
-        /* Space for line/dot */
-    }
+.card-link .card {
+    cursor: pointer;
+}
 
+/* Break Card Styles */
+.break-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-style: dashed;
+    transform: scale(0.95);
+}
 
+.break-card .session-title {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}
 
-    .card {
-        text-align: left;
-        padding: 1.5rem;
-    }
+/* Social Footer */
+.social-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
 
-    .speaker-info-header {
-        display: inline-block;
-        margin-bottom: 0.75rem;
-    }
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #ff0000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    background: white;
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
 }
