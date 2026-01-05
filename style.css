@@ -136,6 +136,15 @@ body {
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
 }
 
+.location-badge {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
 /* Timeline Layout */
 .timeline-section {
     position: relative;
