@@ -45,7 +45,8 @@
             <!-- 1. 방세준 -->
             <div class="timeline-item">
 
-                <a href="https://github.com/heodongun/bumacon" class="card-link" target="_blank">
+                <a href="https://www.figma.com/deck/AOQClffHtRk9C0HV4m3bSc/Untitled?node-id=1-164&viewport=-176%2C-138%2C0.8&t=M24uqD87QoYUSCJG-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1"
+                    class="card-link" target="_blank">
                     <div class="card">
                         <div class="card-content">
                             <div class="speaker-info-header">
@@ -60,7 +61,8 @@
             <!-- 2. 김민제 -->
             <div class="timeline-item">
 
-                <a href="https://github.com/heodongun/bumacon" class="card-link" target="_blank">
+                <a href="https://www.figma.com/proto/jtxYqjaudHJvGFnkCBviVX/BUMACON?page-id=0%3A1&node-id=0-28&viewport=45%2C264%2C0.03&t=3EaCdeoXiYmyWb95-1&scaling=contain&content-scaling=fixed&starting-point-node-id=0%3A28"
+                    class="card-link" target="_blank">
                     <div class="card">
                         <div class="card-content">
                             <div class="speaker-info-header">
@@ -75,7 +77,8 @@
             <!-- 3. 황준혁 -->
             <div class="timeline-item">
 
-                <a href="https://github.com/heodongun/bumacon" class="card-link" target="_blank">
+                <a href="https://www.figma.com/slides/n0zK6zyFcxDxn5hvqqtPzc/Untitled?node-id=0-1&t=QzHSoUFcMIMovEzA-1"
+                    class="card-link" target="_blank">
                     <div class="card">
                         <div class="card-content">
                             <div class="speaker-info-header">
@@ -89,7 +92,7 @@
 
             <!-- 휴식 시간 -->
             <div class="timeline-item">
-                <div class="card break-card">
+                <div class="card break-card" id="break-time-card" style="cursor: pointer;">
                     <div class="card-content">
                         <h2 class="session-title">10분 쉬는시간</h2>
                     </div>
@@ -99,7 +102,8 @@
             <!-- 4. 이효준 -->
             <div class="timeline-item">
 
-                <a href="https://github.com/heodongun/bumacon" class="card-link" target="_blank">
+                <a href="https://www.figma.com/slides/Z6i3VfKF6T20ABBoFovggV/Untitled?node-id=41-243&t=rNdeqbU8LrRHtf7q-1"
+                    class="card-link" target="_blank">
                     <div class="card">
                         <div class="card-content">
                             <div class="speaker-info-header">
@@ -114,7 +118,8 @@
             <!-- 5. 구현우 -->
             <div class="timeline-item">
 
-                <a href="https://github.com/heodongun/bumacon" class="card-link" target="_blank">
+                <a href="https://www.figma.com/slides/hzsV7nF4YDCfLBumvB63l4/Untitled?node-id=1-42&t=ry2UUWbzXaPzpjIB-1"
+                    class="card-link" target="_blank">
                     <div class="card">
                         <div class="card-content">
                             <div class="speaker-info-header">
@@ -168,6 +173,120 @@
                 </a>
             </div>
         </footer>
+
+        <!-- Modal Structure -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <img class="modal-content" id="modalImage">
+                <div id="birthday-message" class="birthday-message">생일 축하해주세요 🎂🎉</div>
+            </div>
+            <canvas id="confetti-canvas"></canvas>
+        </div>
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById("imageModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var breakCard = document.getElementById("break-time-card");
+            var modalImg = document.getElementById("modalImage");
+
+            breakCard.onclick = function () {
+                modal.style.display = "block";
+                modalImg.src = "dohunbirth.jpeg";
+                startConfetti();
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+                stopConfetti();
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    stopConfetti();
+                }
+            }
+
+            // --- Confetti Logic ---
+            let confettiAnimationId;
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ['#f87171', '#fbbf24', '#3b82f6', '#8b5cf6', '#ec4899', '#10b981'];
+
+            function createParticle() {
+                const x = Math.random() * canvas.width;
+                const y = -10;
+                const size = Math.random() * 10 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const speedY = Math.random() * 3 + 2;
+                const speedX = Math.random() * 2 - 1;
+                return { x, y, size, color, speedY, speedX };
+            }
+
+            function updateParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    if (p.y > canvas.height) {
+                        particles[i] = createParticle(); // Recycle
+                    }
+                }
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let p of particles) {
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function animateConfetti() {
+                updateParticles();
+                drawParticles();
+                confettiAnimationId = requestAnimationFrame(animateConfetti);
+            }
+
+            function startConfetti() {
+                canvas.width = window.innerWidth; // Resize on start
+                canvas.height = window.innerHeight;
+                particles = [];
+                for (let i = 0; i < 150; i++) {
+                    particles.push(createParticle());
+                }
+                // Pre-distribute particles for instant effect
+                particles.forEach(p => p.y = Math.random() * canvas.height);
+
+                cancelAnimationFrame(confettiAnimationId);
+                animateConfetti();
+            }
+
+            function stopConfetti() {
+                cancelAnimationFrame(confettiAnimationId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = [];
+            }
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        </script>
     </main>
 </body>
 
